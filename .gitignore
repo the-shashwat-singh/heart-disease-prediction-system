@@ -29,6 +29,7 @@ media
 
 # Static files
 staticfiles/
+staticfiles_build/
 
 # Frontend
 node_modules/
@@ -60,4 +61,10 @@ docker-compose.override.yml
 .Spotlight-V100
 .Trashes
 ehthumbs.db
-Thumbs.db 
+Thumbs.db
+
+# Vercel
+.vercel
+.next
+*/__pycache__/
+staticfiles_build/ 
