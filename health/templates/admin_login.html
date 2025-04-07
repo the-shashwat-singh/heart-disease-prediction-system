@@ -1,0 +1,114 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Admin Login</h4>
+                </div>
+                <div class="card-body">
+                    {% if error == "pat" %}
+                    <div class="alert alert-success">
+                        <i class="fa fa-check-circle"></i> Logged in successfully. Redirecting...
+                        <script>
+                            setTimeout(function() {
+                                window.location="{% url 'admin_home' %}";
+                            }, 1000);
+                        </script>
+                    </div>
+                    {% endif %}
+
+                    {% if error == "not" %}
+                    <div class="alert alert-danger">
+                        <i class="fa fa-exclamation-circle"></i> Invalid username or password.
+                    </div>
+                    {% endif %}
+
+                    {% if error == "csrf" %}
+                    <div class="alert alert-warning">
+                        <i class="fa fa-exclamation-triangle"></i> Session expired. Please try again.
+                    </div>
+                    {% endif %}
+
+                    <form method="post" class="mt-4">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="username" name="uname" placeholder="Enter admin username" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                </div>
+                                <input type="password" class="form-control" id="password" name="pwd" placeholder="Enter password" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <i class="fa fa-sign-in"></i> Login
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <small class="text-muted">For security reasons, please log out after completing your tasks.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-header {
+    border-bottom: none;
+    padding: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group-text {
+    background-color: #f8f9fa;
+    border-right: none;
+}
+
+.form-control {
+    border-left: none;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+}
+
+.btn-primary {
+    padding: 0.75rem;
+    font-weight: 500;
+}
+
+.alert {
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+}
+</style>
+
+{% endblock %}

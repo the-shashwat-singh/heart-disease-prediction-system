@@ -1,0 +1,312 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+
+<div class="container py-5">
+    <!-- Result Card -->
+    <div class="prediction-form-container">
+        <div class="prediction-header">
+            <h1>Prediction Results</h1>
+            <p>Here are your heart disease prediction results based on the provided health parameters</p>
+            <div class="heartbeat-icon">
+                <i class="fa fa-heartbeat"></i>
+            </div>
+        </div>
+        
+        <div class="prediction-form">
+            <!-- Result Summary Card -->
+            <div class="result-card mb-4">
+                <div class="result-card-header {% if pred == '0' %}result-healthy{% else %}result-risk{% endif %}">
+                    <div class="d-flex align-items-center">
+                        <i class="fa {% if pred == '0' %}fa-check-circle{% else %}fa-exclamation-triangle{% endif %} fa-3x mr-3"></i>
+                        <div>
+                            <h2 class="mb-1">
+                                {% if pred == "0" %}
+                                    No Heart Disease Detected
+                                {% else %}
+                                    Heart Disease Risk Detected
+                                {% endif %}
+                            </h2>
+                            <p class="mb-0">Based on your health parameters</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-card-body">
+                    <div class="result-accuracy mb-4">
+                        <p class="mb-2">Model Prediction Accuracy</p>
+                        <div class="accuracy-meter">
+                            <div class="accuracy-value" style="width: {% if '90-93' in accuracy %}92{% elif '93-95' in accuracy %}94{% elif '95-97' in accuracy %}96{% else %}93{% endif %}%"></div>
+                        </div>
+                        <p class="text-center mt-2"><strong>{{ accuracy }}</strong> accuracy range</p>
+                    </div>
+                    
+                    <div class="alert {% if pred == '0' %}alert-info{% else %}alert-warning{% endif %} mb-4">
+                        <div class="d-flex">
+                            <div class="mr-3">
+                                <i class="fa {% if pred == '0' %}fa-info-circle{% else %}fa-exclamation-triangle{% endif %} fa-2x"></i>
+                            </div>
+                            <div>
+                                {% if pred == "0" %}
+                                <h5 class="alert-heading">Good News, But Stay Vigilant</h5>
+                                <p>Our model predicts you don't have heart disease. However, this doesn't guarantee you're free from all cardiovascular risks. Please review your individual health parameters below.</p>
+                                {% else %}
+                                <h5 class="alert-heading">Warning: Heart Disease Risk Detected</h5>
+                                <p>Our model predicts a risk of heart disease. It's recommended to consult with a healthcare professional for proper evaluation and advice.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk Factors and Recommendations -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon {% if pred == '0' %}personal-icon{% else %}cardio-icon{% endif %}">
+                        <i class="fa fa-heartbeat"></i>
+                    </div>
+                    <h4>Health Risk Analysis</h4>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="mb-3">Your Health Parameters</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Your Value</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if health_risks %}
+                                        {% if health_risks.blood_pressure %}
+                                        <tr class="table-{{ health_risks.blood_pressure.warning_level }}">
+                                            <td>Blood Pressure</td>
+                                            <td>{{ health_risks.blood_pressure.value }} mmHg</td>
+                                            <td>
+                                                {{ health_risks.blood_pressure.status }}
+                                                {% if health_risks.blood_pressure.warning_level != 'success' %}
+                                                <i class="fa fa-exclamation-triangle text-{{ health_risks.blood_pressure.warning_level }}"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                        
+                                        {% if health_risks.cholesterol %}
+                                        <tr class="table-{{ health_risks.cholesterol.warning_level }}">
+                                            <td>Cholesterol</td>
+                                            <td>{{ health_risks.cholesterol.value }} mg/dl</td>
+                                            <td>
+                                                {{ health_risks.cholesterol.status }}
+                                                {% if health_risks.cholesterol.warning_level != 'success' %}
+                                                <i class="fa fa-exclamation-triangle text-{{ health_risks.cholesterol.warning_level }}"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                        
+                                        {% if health_risks.blood_sugar %}
+                                        <tr class="table-{{ health_risks.blood_sugar.warning_level }}">
+                                            <td>Fasting Blood Sugar</td>
+                                            <td>{{ health_risks.blood_sugar.value }}</td>
+                                            <td>
+                                                {{ health_risks.blood_sugar.status }}
+                                                {% if health_risks.blood_sugar.warning_level != 'success' %}
+                                                <i class="fa fa-exclamation-triangle text-{{ health_risks.blood_sugar.warning_level }}"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                        
+                                        {% if health_risks.max_heart_rate %}
+                                        <tr class="table-{{ health_risks.max_heart_rate.warning_level }}">
+                                            <td>Max Heart Rate</td>
+                                            <td>{{ health_risks.max_heart_rate.value }} bpm</td>
+                                            <td>
+                                                {{ health_risks.max_heart_rate.status }}
+                                                {% if health_risks.max_heart_rate.warning_level != 'success' %}
+                                                <i class="fa fa-exclamation-triangle text-{{ health_risks.max_heart_rate.warning_level }}"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                        
+                                        {% if health_risks.exercise_angina %}
+                                        <tr class="table-{{ health_risks.exercise_angina.warning_level }}">
+                                            <td>Exercise Angina</td>
+                                            <td>{{ health_risks.exercise_angina.value }}</td>
+                                            <td>
+                                                {{ health_risks.exercise_angina.status }}
+                                                {% if health_risks.exercise_angina.warning_level != 'success' %}
+                                                <i class="fa fa-exclamation-triangle text-{{ health_risks.exercise_angina.warning_level }}"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                        
+                                        {% if health_risks.st_depression %}
+                                        <tr class="table-{{ health_risks.st_depression.warning_level }}">
+                                            <td>ST Depression</td>
+                                            <td>{{ health_risks.st_depression.value }}</td>
+                                            <td>
+                                                {{ health_risks.st_depression.status }}
+                                                {% if health_risks.st_depression.warning_level != 'success' %}
+                                                <i class="fa fa-exclamation-triangle text-{{ health_risks.st_depression.warning_level }}"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                        
+                                        {% if health_risks.vessels_colored %}
+                                        <tr class="table-{{ health_risks.vessels_colored.warning_level }}">
+                                            <td>Affected Vessels</td>
+                                            <td>{{ health_risks.vessels_colored.value }}</td>
+                                            <td>
+                                                {{ health_risks.vessels_colored.status }}
+                                                {% if health_risks.vessels_colored.warning_level != 'success' %}
+                                                <i class="fa fa-exclamation-triangle text-{{ health_risks.vessels_colored.warning_level }}"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                        
+                                        {% if health_risks.thalassemia %}
+                                        <tr class="table-{{ health_risks.thalassemia.warning_level }}">
+                                            <td>Thalassemia</td>
+                                            <td>{{ health_risks.thalassemia.value }}</td>
+                                            <td>
+                                                {{ health_risks.thalassemia.status }}
+                                                {% if health_risks.thalassemia.warning_level != 'success' %}
+                                                <i class="fa fa-exclamation-triangle text-{{ health_risks.thalassemia.warning_level }}"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="3" class="text-center">No detailed health parameter data available</td>
+                                        </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="card bg-light mt-3">
+                            <div class="card-body">
+                                <h6 class="card-title">Understanding Status Indicators</h6>
+                                <ul class="list-unstyled mb-0">
+                                    <li><span class="badge badge-success">Green</span> - Normal/Healthy range</li>
+                                    <li><span class="badge badge-warning">Yellow</span> - Borderline/Monitor</li>
+                                    <li><span class="badge badge-danger">Red</span> - Concerning/Requires attention</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h5 class="mb-3">Personalized Recommendations</h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <ul class="list-unstyled">
+                                    {% if recommendations %}
+                                        {% for recommendation in recommendations %}
+                                        <li class="mb-2">
+                                            <i class="fa {% if pred == '0' %}fa-check-circle text-success{% else %}fa-exclamation-circle text-danger{% endif %} mr-2"></i> 
+                                            {{ recommendation }}
+                                        </li>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% if pred == "0" %}
+                                        <li class="mb-2"><i class="fa fa-check-circle text-success mr-2"></i> Maintain a heart-healthy diet</li>
+                                        <li class="mb-2"><i class="fa fa-check-circle text-success mr-2"></i> Regular exercise (at least 150 minutes weekly)</li>
+                                        <li class="mb-2"><i class="fa fa-check-circle text-success mr-2"></i> Schedule routine check-ups</li>
+                                        <li class="mb-2"><i class="fa fa-check-circle text-success mr-2"></i> Monitor your blood pressure and cholesterol</li>
+                                        <li class="mb-2"><i class="fa fa-check-circle text-success mr-2"></i> Maintain a healthy weight</li>
+                                        {% else %}
+                                        <li class="mb-2"><i class="fa fa-exclamation-circle text-danger mr-2"></i> <strong>Consult with a cardiologist soon</strong></li>
+                                        <li class="mb-2"><i class="fa fa-exclamation-circle text-danger mr-2"></i> Follow a heart-healthy, low-sodium diet</li>
+                                        <li class="mb-2"><i class="fa fa-exclamation-circle text-danger mr-2"></i> Regular moderate exercise as advised by doctor</li>
+                                        <li class="mb-2"><i class="fa fa-exclamation-circle text-danger mr-2"></i> Regularly monitor your blood pressure and heart rate</li>
+                                        <li class="mb-2"><i class="fa fa-exclamation-circle text-danger mr-2"></i> Consider medication if prescribed by your doctor</li>
+                                        {% endif %}
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        {% if risk_factors %}
+                        <div class="card border-warning mt-3">
+                            <div class="card-header bg-warning text-white">
+                                <h6 class="mb-0">Warning: Risk Factors Detected</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled mb-0">
+                                    {% for factor in risk_factors %}
+                                    <li class="mb-2">
+                                        <i class="fa fa-exclamation-triangle text-{{ factor.warning_level }} mr-2"></i>
+                                        <strong>{{ factor.status }}</strong>: {{ factor.message }}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="alert alert-secondary mt-4">
+                    <p class="mb-0"><strong>Disclaimer:</strong> This prediction is for informational purposes only and does not replace professional medical advice. Always consult with a healthcare professional.</p>
+                </div>
+            </div>
+
+            <!-- Doctor Recommendations Section -->
+            {% if doctor %}
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon additional-icon">
+                        <i class="fa fa-user-md"></i>
+                    </div>
+                    <h4>Recommended Doctors Near You</h4>
+                </div>
+                
+                <div class="row">
+                    {% for i in doctor %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card doctor-card h-100">
+                            <img src="{{i.image.url}}" class="doctor-card-img" alt="{{i.user.first_name}} {{i.user.last_name}}">
+                            <div class="doctor-card-body">
+                                <h5 class="doctor-name">Dr. {{i.user.first_name}} {{i.user.last_name}}</h5>
+                                <p class="doctor-specialty">Cardiologist</p>
+                                <p class="doctor-info"><i class="fa fa-envelope"></i> {{i.user.email}}</p>
+                                <p class="doctor-info"><i class="fa fa-phone"></i> {{i.contact}}</p>
+                                <p class="doctor-info"><i class="fa fa-map-marker"></i> {{i.address}}</p>
+                                <div class="doctor-contact">
+                                    <a href="mailto:{{i.user.email}}"><i class="fa fa-envelope"></i> Email</a>
+                                    <a href="tel:{{i.contact}}"><i class="fa fa-phone"></i> Call</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Action Buttons -->
+            <div class="text-center mt-4">
+                <a href="{% url 'add_heartdetail' %}" class="btn btn-primary mr-2">
+                    <i class="fa fa-repeat mr-2"></i> Take Another Test
+                </a>
+                <a href="{% url 'view_search_pat' %}" class="btn btn-outline-primary">
+                    <i class="fa fa-history mr-2"></i> View History
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,345 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+
+<!-- Contact Section -->
+<section class="contact-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="contact-container">
+                    <!-- Left side: Contact Information -->
+                    <div class="contact-info">
+                        <div class="info-header">
+                            <h2>Contact Us</h2>
+                            <p>Get in touch with us for any queries or support</p>
+                        </div>
+                        
+                        <div class="info-content">
+                            <div class="info-item">
+                                <div class="icon">
+                                    <i class="fa fa-map-marker"></i>
+                                </div>
+                                <div class="details">
+                                    <h4>Location</h4>
+                                    <p>SRMIST, Kattankulathur, Chennai, Tamil Nadu 603203</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="icon">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <div class="details">
+                                    <h4>Phone</h4>
+                                    <p><a href="tel:+918935044479">+91 8935044479</a></p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="icon">
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                                <div class="details">
+                                    <h4>Email</h4>
+                                    <p><a href="mailto:wellgaurd@gmail.com">wellgaurd@gmail.com</a></p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="icon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <div class="details">
+                                    <h4>Working Hours</h4>
+                                    <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                                    <p>Saturday: 10:00 AM - 4:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fa fa-facebook"></i></a>
+                            <a href="#" class="social-link"><i class="fa fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fa fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fa fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- Right side: Contact Form -->
+                    <div class="contact-form">
+                        <div class="form-header">
+                            <h3>Send us a Message</h3>
+                            <p>Fill out the form below and we'll get back to you as soon as possible</p>
+                        </div>
+                        
+                        <form action="#" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="name"><i class="fa fa-user"></i> Full Name</label>
+                                <input type="text" id="name" class="form-control" name="Name" placeholder="Enter your name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email"><i class="fa fa-envelope"></i> Email Address</label>
+                                <input type="email" id="email" class="form-control" name="Email" placeholder="Enter your email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject"><i class="fa fa-tag"></i> Subject</label>
+                                <input type="text" id="subject" class="form-control" name="Subject" placeholder="Enter subject" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message"><i class="fa fa-comment"></i> Message</label>
+                                <textarea id="message" class="form-control" name="Message" rows="5" placeholder="Enter your message" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn submit-btn">
+                                <i class="fa fa-paper-plane"></i> Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Map Section -->
+        <div class="map-container mt-5">
+            <div class="map-header">
+                <h3>Our Location</h3>
+                <p>Find us at SRM Institute of Science and Technology</p>
+            </div>
+            <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.123456789012!2d80.04012345678901!3d12.82345678901234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52f7b2d3b4c5d6%3A0x7e8f9a0b1c2d3e4f!2sSRM%20Institute%20of%20Science%20and%20Technology!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin" 
+                    width="100%" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.contact-section {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+}
+
+.contact-container {
+    display: flex;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    background-color: #fff;
+}
+
+.contact-info {
+    flex: 0 0 40%;
+    background: linear-gradient(135deg, #3498db, #8e44ad);
+    padding: 40px;
+    color: white;
+}
+
+.info-header {
+    margin-bottom: 40px;
+}
+
+.info-header h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.info-header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.info-item .icon {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.info-item .icon i {
+    font-size: 20px;
+}
+
+.info-item .details h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.info-item .details p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+.info-item .details a {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.info-item .details a:hover {
+    opacity: 0.8;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background-color: white;
+    color: #3498db;
+    transform: translateY(-3px);
+}
+
+.contact-form {
+    flex: 0 0 60%;
+    padding: 40px;
+}
+
+.form-header {
+    margin-bottom: 30px;
+}
+
+.form-header h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.form-header p {
+    color: #6c757d;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #495057;
+}
+
+.form-group .form-control {
+    height: 45px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 0.375rem 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.form-group textarea.form-control {
+    height: auto;
+    resize: vertical;
+}
+
+.form-group .form-control:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to right, #3498db, #8e44ad);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(to right, #2980b9, #7d3c98);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.map-container {
+    margin-top: 50px;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.map-header {
+    padding: 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #3498db, #8e44ad);
+    color: white;
+}
+
+.map-header h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.map-header p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+.map {
+    height: 450px;
+}
+
+@media (max-width: 992px) {
+    .contact-container {
+        flex-direction: column;
+    }
+    
+    .contact-info, .contact-form {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+    
+    .contact-info {
+        padding: 30px;
+    }
+}
+</style>
+{% endblock %}
+
+
+	<!-- page details -->

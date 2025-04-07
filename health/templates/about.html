@@ -1,0 +1,129 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+
+<section class="about-section py-5">
+	<div class="container py-xl-5 py-lg-3">
+		<div class="about-header text-center mb-5">
+			<h2 class="section-title">About Us</h2>
+			<div class="title-separator"></div>
+		</div>
+
+		<div class="row align-items-center">
+			<div class="col-lg-6 mb-4 mb-lg-0">
+				<div class="about-image">
+					<img src="{% static 'images/logo.jpeg' %}" alt="WellGuard Logo" class="img-fluid rounded shadow-lg" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="about-content">
+					<h3 class="brand-title mb-4">Heart Disease Prediction - A <span class="text-primary">WellGuard</span> Solution</h3>
+					<p class="lead mb-4">WellGuard's Heart Disease Prediction system is an advanced feature of our comprehensive healthcare platform that analyzes pulse sensor data to identify potential cardiac conditions with high accuracy.</p>
+					<p>Our innovative technology combines medical expertise with machine learning algorithms to process vital health parameters and pulse sensor readings. By analyzing these metrics, our system can detect early warning signs of heart disease, allowing for timely medical intervention.</p>
+					<p>The healthcare industry has embraced machine learning technologies to enhance diagnostic capabilities. WellGuard leverages this technology to provide doctors with valuable insights for personalized diagnosis and treatment plans, ultimately improving patient outcomes and saving lives.</p>
+					<div class="about-features mt-4">
+						<div class="feature-item">
+							<i class="fa fa-check-circle text-primary"></i>
+							<span>Advanced machine learning algorithms</span>
+						</div>
+						<div class="feature-item">
+							<i class="fa fa-check-circle text-primary"></i>
+							<span>Real-time pulse sensor data analysis</span>
+						</div>
+						<div class="feature-item">
+							<i class="fa fa-check-circle text-primary"></i>
+							<span>Personalized health insights</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.about-section {
+		background-color: #f8f9fa;
+	}
+	
+	.section-title {
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: #333;
+		margin-bottom: 0.5rem;
+	}
+	
+	.title-separator {
+		height: 3px;
+		width: 80px;
+		background: linear-gradient(to right, #3498db, #8e44ad);
+		margin: 1rem auto;
+	}
+	
+	.about-image {
+		position: relative;
+		overflow: hidden;
+		border-radius: 12px;
+	}
+	
+	.about-image img {
+		transition: transform 0.5s ease;
+		max-height: 350px;
+		object-fit: contain;
+		margin: 0 auto;
+		display: block;
+	}
+	
+	.about-image:hover img {
+		transform: scale(1.03);
+	}
+	
+	.brand-title {
+		font-size: 1.75rem;
+		font-weight: 600;
+	}
+	
+	.brand-title span {
+		color: #3498db;
+		font-weight: 700;
+	}
+	
+	.lead {
+		font-size: 1.15rem;
+		font-weight: 400;
+		color: #444;
+	}
+	
+	.about-features {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+	
+	.feature-item {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+	
+	.feature-item i {
+		font-size: 1.25rem;
+		color: #3498db;
+	}
+	
+	@media (max-width: 767px) {
+		.section-title {
+			font-size: 2rem;
+		}
+		
+		.about-content {
+			text-align: center;
+		}
+		
+		.about-features {
+			align-items: center;
+		}
+	}
+</style>
+
+{% endblock %}

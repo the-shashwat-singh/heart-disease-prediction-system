@@ -1,0 +1,193 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-12">
+                <h1>Heart Disease Prediction System</h1>
+                <p>Early detection of heart disease risk can save lives. Our machine learning-powered system helps predict your likelihood of developing heart disease based on medical parameters.</p>
+                <div class="mt-4">
+                    {% if not request.user.is_authenticated %}
+                    <a href="{% url 'signup' %}" class="btn btn-primary mr-3">Register Now</a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-light">Login</a>
+                    {% else %}
+                        {% if request.user.patient_set.all.0 %}
+                        <a href="{% url 'add_heartdetail' %}" class="btn btn-primary mr-3">Get Prediction</a>
+                        <a href="{% url 'view_search_pat' %}" class="btn btn-outline-light">View History</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 text-center">
+                <img src="{% static 'images/heart.jpg' %}" alt="Heart Disease" class="img-fluid rounded" style="max-height: 400px;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="mb-3">How It Works</h2>
+            <p class="text-muted">Our system uses advanced machine learning algorithms to predict heart disease risk</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fa fa-user-plus"></i>
+                    </div>
+                    <h3>Register</h3>
+                    <p>Create an account to get started with your heart health journey</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fa fa-list-alt"></i>
+                    </div>
+                    <h3>Enter Parameters</h3>
+                    <p>Input your medical data such as age, blood pressure, cholesterol levels, etc.</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fa fa-cogs"></i>
+                    </div>
+                    <h3>Analysis</h3>
+                    <p>Our algorithm processes your data and analyzes risk factors</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fa fa-heartbeat"></i>
+                    </div>
+                    <h3>Results</h3>
+                    <p>Get your results and connect with doctors for consultation if needed</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About the System -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+                <img src="{% static 'images/heart.jpg' %}" alt="Heart Health" class="img-fluid rounded">
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <h2 class="mb-4">About Our Heart Disease Prediction System</h2>
+                <p>Heart disease is one of the leading causes of death globally. Early detection and prevention can significantly reduce risks and save lives.</p>
+                <p>Our system leverages machine learning algorithms to analyze various health parameters and predict the likelihood of developing heart disease. The model has been trained on real medical data and provides high accuracy in predictions.</p>
+                <div class="mt-4">
+                    <h5>Key Features:</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fa fa-check-circle text-success mr-2"></i> High prediction accuracy using Gradient Boosting Algorithm</li>
+                        <li><i class="fa fa-check-circle text-success mr-2"></i> Secure storage of your health records</li>
+                        <li><i class="fa fa-check-circle text-success mr-2"></i> Connect with specialized doctors based on results</li>
+                        <li><i class="fa fa-check-circle text-success mr-2"></i> Track your heart health over time</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Health Parameters Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="mb-3">Health Parameters We Analyze</h2>
+            <p class="text-muted">Our system takes into account these important health indicators</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="fa fa-calendar-o text-primary mr-2"></i> Age</h4>
+                        <p class="card-text">Age is a significant risk factor for heart disease. The risk increases as you get older.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="fa fa-mars-stroke text-primary mr-2"></i> Sex</h4>
+                        <p class="card-text">Men are generally at higher risk of heart disease than women, especially at younger ages.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="fa fa-heartbeat text-primary mr-2"></i> Chest Pain Type</h4>
+                        <p class="card-text">Different types of chest pain (angina) can indicate various heart conditions.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="fa fa-tachometer text-primary mr-2"></i> Blood Pressure</h4>
+                        <p class="card-text">High blood pressure (hypertension) is a major risk factor for heart disease.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="fa fa-medkit text-primary mr-2"></i> Cholesterol</h4>
+                        <p class="card-text">High cholesterol levels can lead to plaque buildup in arteries, increasing heart disease risk.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="fa fa-area-chart text-primary mr-2"></i> Fasting Blood Sugar</h4>
+                        <p class="card-text">Elevated blood sugar can indicate diabetes, which increases heart disease risk.</p>
+                    </div>
+                </div>
+            </div>
+		</div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'about' %}" class="btn btn-outline-primary">Learn More About All Parameters</a>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5" style="background: linear-gradient(135deg, var(--primary-dark), var(--primary));">
+    <div class="container text-center text-white">
+        <h2 class="mb-4">Ready to Check Your Heart Health?</h2>
+        <p class="mb-4">Early detection is key to preventing heart disease. Get your prediction today!</p>
+        {% if not request.user.is_authenticated %}
+        <a href="{% url 'signup' %}" class="btn btn-light btn-lg">Register Now</a>
+        {% else %}
+            {% if request.user.patient_set.all.0 %}
+            <a href="{% url 'add_heartdetail' %}" class="btn btn-light btn-lg">Get Prediction</a>
+            {% endif %}
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

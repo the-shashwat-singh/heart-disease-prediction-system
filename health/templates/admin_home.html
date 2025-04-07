@@ -1,0 +1,174 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+
+<div class="container py-5">
+    <!-- Admin Dashboard Header -->
+    <div class="mb-5">
+        <h1 class="mb-3">Admin Dashboard</h1>
+        <p class="text-muted">Welcome to the Heart Disease Prediction System Administration Panel. Here you can manage users, view statistics, and monitor system activity.</p>
+    </div>
+    
+    <!-- Stats Overview -->
+    <div class="row mb-5">
+        <div class="col-lg-3 col-md-6 mb-4">
+            <a href="{% url 'view_doctor' %}" class="text-decoration-none">
+                <div class="stat-card stat-card-primary">
+                    <i class="fa fa-user-md stat-icon"></i>
+                    <div class="stat-number">{{ doc }}</div>
+                    <div class="stat-title">Doctors</div>
+                    <div class="stat-desc">Total registered doctors</div>
+                </div>
+            </a>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4">
+            <a href="{% url 'view_patient' %}" class="text-decoration-none">
+                <div class="stat-card stat-card-secondary">
+                    <i class="fa fa-users stat-icon"></i>
+                    <div class="stat-number">{{ pat }}</div>
+                    <div class="stat-title">Patients</div>
+                    <div class="stat-desc">Total registered patients</div>
+                </div>
+            </a>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4">
+            <a href="{% url 'view_feedback' %}" class="text-decoration-none">
+                <div class="stat-card stat-card-accent">
+                    <i class="fa fa-comments stat-icon"></i>
+                    <div class="stat-number">{{ feed }}</div>
+                    <div class="stat-title">Feedback</div>
+                    <div class="stat-desc">Total user feedback</div>
+                </div>
+            </a>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4">
+            <a href="{% url 'view_search_pat' %}" class="text-decoration-none">
+                <div class="stat-card stat-card-warning">
+                    <i class="fa fa-heartbeat stat-icon"></i>
+                    <div class="stat-number">{{ dis }}</div>
+                    <div class="stat-title">Predictions</div>
+                    <div class="stat-desc">Total heart disease predictions</div>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="card mb-5">
+        <div class="card-header">
+            <h5 class="mb-0">Quick Actions</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                    <a href="{% url 'add_doctor' %}" class="btn btn-outline-primary btn-block">
+                        <i class="fa fa-user-md mr-2"></i> Add New Doctor
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                    <a href="{% url 'view_search_pat' %}" class="btn btn-outline-primary btn-block">
+                        <i class="fa fa-search mr-2"></i> View Predictions
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                    <a href="{% url 'view_feedback' %}" class="btn btn-outline-primary btn-block">
+                        <i class="fa fa-comments mr-2"></i> View Feedback
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                    <a href="{% url 'view_patient' %}" class="btn btn-outline-primary btn-block">
+                        <i class="fa fa-users mr-2"></i> Manage Patients
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- System Overview -->
+    <div class="row">
+        <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="mb-0">System Status</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            System Status
+                            <span class="badge badge-success">Online</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            ML Model Status
+                            <span class="badge badge-success">Active</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Database Status
+                            <span class="badge badge-success">Connected</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Last Backup
+                            <span>{% now "F j, Y" %}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="mb-0">System Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h6 class="text-muted mb-2">Prediction Accuracy</h6>
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <h6 class="text-muted mb-2">System Load</h6>
+                        <div class="progress">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <h6 class="text-muted mb-2">Database Usage</h6>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">45%</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h6 class="text-muted mb-2">Memory Usage</h6>
+                        <div class="progress">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Admin Guide -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Admin Guide</h5>
+        </div>
+        <div class="card-body">
+            <p>As an administrator, you have access to manage all aspects of the Heart Disease Prediction System:</p>
+            <ul>
+                <li><strong>Manage Doctors:</strong> Add, edit, or remove doctors from the system.</li>
+                <li><strong>Manage Patients:</strong> View and manage patient accounts and their data.</li>
+                <li><strong>View Predictions:</strong> Access all heart disease predictions made by the system.</li>
+                <li><strong>Review Feedback:</strong> Check feedback submitted by users to improve the system.</li>
+                <li><strong>System Maintenance:</strong> Ensure all components are working properly.</li>
+            </ul>
+            <p class="mb-0">For technical support or questions, please contact the system administrator.</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

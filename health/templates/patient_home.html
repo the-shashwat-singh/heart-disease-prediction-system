@@ -1,0 +1,241 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+
+<div class="container py-5">
+    <!-- Patient Dashboard Header -->
+    <div class="mb-5">
+        <h1 class="mb-3">Patient Dashboard</h1>
+        <p class="text-muted">Welcome, {{ request.user.first_name }}! Monitor your heart health and access predictions all in one place.</p>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="row mb-5">
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="feature-icon mb-4" style="margin: 0 auto;">
+                        <i class="fa fa-heartbeat"></i>
+                    </div>
+                    <h3 class="h4 mb-3">Get Prediction</h3>
+                    <p class="text-muted mb-4">Check your risk of heart disease by entering your medical parameters</p>
+                    <a href="{% url 'add_heartdetail' %}" class="btn btn-primary">Start Prediction</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="feature-icon mb-4" style="margin: 0 auto;">
+                        <i class="fa fa-history"></i>
+                    </div>
+                    <h3 class="h4 mb-3">View History</h3>
+                    <p class="text-muted mb-4">Access your previous heart disease prediction results</p>
+                    <a href="{% url 'view_search_pat' %}" class="btn btn-primary">View History</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="feature-icon mb-4" style="margin: 0 auto;">
+                        <i class="fa fa-user-md"></i>
+                    </div>
+                    <h3 class="h4 mb-3">Find Doctors</h3>
+                    <p class="text-muted mb-4">Connect with healthcare professionals in your area</p>
+                    <a href="#doctors-section" class="btn btn-primary">Find Doctors</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Health Tips Section -->
+    <div class="card mb-5">
+        <div class="card-header">
+            <h5 class="mb-0">Heart Health Tips</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <div class="d-flex">
+                                <div class="mr-3 text-primary">
+                                    <i class="fa fa-check-circle fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h5>Regular Exercise</h5>
+                                    <p class="text-muted">Aim for at least 30 minutes of moderate activity daily, such as brisk walking, swimming, or cycling.</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mb-3">
+                            <div class="d-flex">
+                                <div class="mr-3 text-primary">
+                                    <i class="fa fa-check-circle fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h5>Healthy Diet</h5>
+                                    <p class="text-muted">Consume a diet rich in fruits, vegetables, whole grains, and lean proteins. Limit sodium, saturated fats, and sugar.</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <div class="d-flex">
+                                <div class="mr-3 text-primary">
+                                    <i class="fa fa-check-circle fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h5>Control Blood Pressure</h5>
+                                    <p class="text-muted">Monitor your blood pressure regularly and maintain it within a healthy range to reduce heart disease risk.</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mb-3">
+                            <div class="d-flex">
+                                <div class="mr-3 text-primary">
+                                    <i class="fa fa-check-circle fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h5>Manage Stress</h5>
+                                    <p class="text-muted">Practice stress-reduction techniques like meditation, deep breathing, or yoga to support heart health.</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recent Predictions (if any) -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Recent Predictions</h5>
+                    <a href="{% url 'view_search_pat' %}" class="btn btn-sm btn-outline-primary">View All</a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Result</th>
+                                    <th>Accuracy</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- This would be populated dynamically with actual data -->
+                                <tr>
+                                    <td>{% now "F j, Y" %}</td>
+                                    <td><span class="badge badge-success">Healthy</span></td>
+                                    <td>85%</td>
+                                    <td><a href="#" class="btn btn-sm btn-outline-primary">View Details</a></td>
+                                </tr>
+                                <tr>
+                                    <td>{% now "F j, Y" %}</td>
+                                    <td><span class="badge badge-warning">At Risk</span></td>
+                                    <td>92%</td>
+                                    <td><a href="#" class="btn btn-sm btn-outline-primary">View Details</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Doctors Section -->
+    <div id="doctors-section" class="mb-5">
+        <h3 class="mb-4">Recommended Doctors</h3>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="doctor-card">
+                    <img src="{% static 'images/heart.jpg' %}" alt="Doctor" class="doctor-card-img">
+                    <div class="doctor-card-body">
+                        <h4 class="doctor-name">Dr. Sarah Johnson</h4>
+                        <div class="doctor-specialty">Cardiologist</div>
+                        <div class="doctor-info"><i class="fa fa-hospital-o"></i> Heart Care Hospital</div>
+                        <div class="doctor-info"><i class="fa fa-map-marker"></i> New York, NY</div>
+                        <div class="doctor-info"><i class="fa fa-phone"></i> (123) 456-7890</div>
+                        <div class="doctor-contact mt-3">
+                            <a href="#" class="btn btn-sm btn-outline-primary"><i class="fa fa-calendar mr-1"></i> Book Appointment</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="doctor-card">
+                    <img src="{% static 'images/heart.jpg' %}" alt="Doctor" class="doctor-card-img">
+                    <div class="doctor-card-body">
+                        <h4 class="doctor-name">Dr. Robert Miller</h4>
+                        <div class="doctor-specialty">Cardiac Surgeon</div>
+                        <div class="doctor-info"><i class="fa fa-hospital-o"></i> City Medical Center</div>
+                        <div class="doctor-info"><i class="fa fa-map-marker"></i> Chicago, IL</div>
+                        <div class="doctor-info"><i class="fa fa-phone"></i> (123) 456-7890</div>
+                        <div class="doctor-contact mt-3">
+                            <a href="#" class="btn btn-sm btn-outline-primary"><i class="fa fa-calendar mr-1"></i> Book Appointment</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="doctor-card">
+                    <img src="{% static 'images/heart.jpg' %}" alt="Doctor" class="doctor-card-img">
+                    <div class="doctor-card-body">
+                        <h4 class="doctor-name">Dr. Emily Chen</h4>
+                        <div class="doctor-specialty">Interventional Cardiologist</div>
+                        <div class="doctor-info"><i class="fa fa-hospital-o"></i> Heart Institute</div>
+                        <div class="doctor-info"><i class="fa fa-map-marker"></i> San Francisco, CA</div>
+                        <div class="doctor-info"><i class="fa fa-phone"></i> (123) 456-7890</div>
+                        <div class="doctor-contact mt-3">
+                            <a href="#" class="btn btn-sm btn-outline-primary"><i class="fa fa-calendar mr-1"></i> Book Appointment</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Educational Video Section -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Learn About Heart Health</h5>
+        </div>
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                        <iframe src="https://www.kapwing.com/e/61bce88b1427a3003e13e657" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-4 mt-lg-0">
+                    <h4>Understanding Heart Disease</h4>
+                    <p>This educational video provides important information about heart disease, its risk factors, prevention strategies, and treatment options.</p>
+                    <p>Key topics covered:</p>
+                    <ul>
+                        <li>Common types of heart disease</li>
+                        <li>Major risk factors and warning signs</li>
+                        <li>Lifestyle changes to improve heart health</li>
+                        <li>When to see a doctor</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline-primary">View More Videos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

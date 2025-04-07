@@ -1,0 +1,320 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+
+<div class="container py-5">
+    <!-- Form Header -->
+    <div class="prediction-form-container">
+        <div class="prediction-header">
+            <h1>Heart Disease Prediction</h1>
+            <p>Our advanced machine learning algorithm analyzes your health parameters to assess your risk of heart disease with up to 88% accuracy.</p>
+            <div class="heartbeat-icon">
+                <i class="fa fa-heartbeat"></i>
+            </div>
+        </div>
+        
+        <!-- Prediction Form -->
+        <div class="prediction-form">
+            <!-- Instruction Card -->
+            <div class="alert alert-info mb-4">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <i class="fa fa-info-circle fa-2x"></i>
+                    </div>
+                    <div>
+                        <h5 class="alert-heading">Important Information</h5>
+                        <p>Please fill in all fields with accurate information for the most reliable prediction. If you don't know some values, consult with your healthcare provider.</p>
+                        <hr>
+                        <p class="mb-0"><strong>Disclaimer:</strong> This prediction is for informational purposes only and does not replace professional medical advice. Always consult with a healthcare professional.</p>
+                    </div>
+                </div>
+            </div>
+            
+				<form action="" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+                
+                <!-- Personal Factors -->
+                <div class="form-section">
+                    <div class="form-section-icon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <div class="section-header">
+                        <div class="section-icon personal-icon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <h4>Personal Information</h4>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="age">
+                                Age
+                                <i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" title="<div class='text-left'><strong>Your current age in years</strong><hr>Age is a significant factor in heart disease risk. Risk increases with age, particularly after 45 for men and 55 for women.</div>"></i>
+                            </label>
+                            <input type="number" class="form-control" id="age" name="age" placeholder="Enter your age" required min="1" max="120">
+                            <small class="form-text text-muted">Enter your current age in years</small>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="sex">
+                                Sex
+                                <i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" title="<div class='text-left'><strong>Biological sex</strong><hr>Men generally have a higher risk of heart disease, though women's risk increases after menopause.<br><br><strong>Male = 1</strong><br><strong>Female = 0</strong></div>"></i>
+                            </label>
+                            <select class="form-control" id="sex" name="sex" required>
+                                <option value="" selected disabled>Select your sex</option>
+                                <option value="1">Male</option>
+                                <option value="0">Female</option>
+                            </select>
+                            <small class="form-text text-muted">Select your biological sex</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cardiovascular Symptoms -->
+                <div class="form-section">
+                    <div class="form-section-icon">
+                        <i class="fa fa-heartbeat"></i>
+                    </div>
+                    <div class="section-header">
+                        <div class="section-icon cardio-icon">
+                            <i class="fa fa-heartbeat"></i>
+                        </div>
+                        <h4>Cardiovascular Symptoms</h4>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="cp">
+                                Chest Pain Type
+                                <i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" title="<div class='text-left'><strong>Type of chest pain or discomfort</strong><hr><strong>Typical Angina (0):</strong> Chest pain related to reduced blood flow to the heart that follows a predictable pattern.<br><br><strong>Atypical Angina (1):</strong> Chest pain that doesn't follow the pattern of typical angina.<br><br><strong>Non-Anginal Pain (2):</strong> Chest pain not related to the heart.<br><br><strong>Asymptomatic (3):</strong> No chest pain symptoms.</div>"></i>
+                            </label>
+                            <select class="form-control" id="cp" name="cp" required>
+                                <option value="" selected disabled>Select chest pain type</option>
+                                <option value="0">Typical Angina (Value: 0)</option>
+                                <option value="1">Atypical Angina (Value: 1)</option>
+                                <option value="2">Non-Anginal Pain (Value: 2)</option>
+                                <option value="3">Asymptomatic (Value: 3)</option>
+                            </select>
+                            <small class="form-text text-muted">Select the type of chest pain you experience</small>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="trestbps">
+                                Resting Blood Pressure
+                                <i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" title="<div class='text-left'><strong>Resting blood pressure in mm Hg</strong><hr>Normal blood pressure is below 120/80 mm Hg.<br><br><strong>Normal:</strong> 90-120 mm Hg<br><strong>Elevated:</strong> 120-129 mm Hg<br><strong>High (Stage 1):</strong> 130-139 mm Hg<br><strong>High (Stage 2):</strong> 140+ mm Hg<br><strong>Hypertensive Crisis:</strong> 180+ mm Hg</div>"></i>
+                            </label>
+                            <input type="number" class="form-control" id="trestbps" name="trestbps" placeholder="Enter resting BP (mm Hg)" required min="80" max="240">
+                            <small class="form-text text-muted">Your resting blood pressure in mm Hg</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Blood Tests -->
+                <div class="form-section">
+                    <div class="form-section-icon">
+                        <i class="fa fa-flask"></i>
+                    </div>
+                    <div class="section-header">
+                        <div class="section-icon blood-icon">
+                            <i class="fa fa-flask"></i>
+                        </div>
+                        <h4>Blood Test Results</h4>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="chole">
+                                Cholesterol
+                                <i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" title="<div class='text-left'><strong>Serum cholesterol in mg/dl</strong><hr><strong>Desirable:</strong> Less than 200 mg/dl<br><strong>Borderline High:</strong> 200-239 mg/dl<br><strong>High:</strong> 240 mg/dl and above<br><br>High cholesterol levels can lead to fatty deposits in blood vessels, increasing heart disease risk.</div>"></i>
+                            </label>
+                            <input type="number" class="form-control" id="chole" name="chole" placeholder="Enter cholesterol (mg/dl)" required min="100" max="600">
+                            <small class="form-text text-muted">Your serum cholesterol in mg/dl</small>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="fbs">
+                                Fasting Blood Sugar
+                                <i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" title="<div class='text-left'><strong>Is your fasting blood sugar > 120 mg/dl?</strong><hr>Fasting blood sugar > 120 mg/dl may indicate diabetes or prediabetes, which increases heart disease risk.<br><br><strong>Yes (1):</strong> Blood sugar > 120 mg/dl<br><strong>No (0):</strong> Blood sugar ≤ 120 mg/dl</div>"></i>
+                            </label>
+                            <select class="form-control" id="fbs" name="fbs" required>
+                                <option value="" selected disabled>Select option</option>
+                                <option value="1">Greater than 120 mg/dl (Value: 1)</option>
+                                <option value="0">Less than or equal to 120 mg/dl (Value: 0)</option>
+                            </select>
+                            <small class="form-text text-muted">Is your fasting blood sugar > 120 mg/dl?</small>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="restecg">
+                                Resting ECG Results
+                                <i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" title="<div class='text-left'><strong>Resting electrocardiographic results</strong><hr><strong>Normal (0):</strong> No abnormalities<br><strong>ST-T Wave Abnormality (1):</strong> ST-T wave abnormalities (T wave inversions and/or ST elevation or depression of > 0.05 mV)<br><strong>Left Ventricular Hypertrophy (2):</strong> Showing probable or definite left ventricular hypertrophy by Estes' criteria</div>"></i>
+                            </label>
+                            <select class="form-control" id="restecg" name="restecg" required>
+                                <option value="" selected disabled>Select ECG result</option>
+                                <option value="0">Normal (Value: 0)</option>
+                                <option value="1">ST-T Wave Abnormality (Value: 1)</option>
+                                <option value="2">Left Ventricular Hypertrophy (Value: 2)</option>
+                            </select>
+                            <small class="form-text text-muted">Your resting electrocardiographic results</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Exercise Test Results -->
+                <div class="form-section">
+                    <div class="form-section-icon">
+                        <i class="fa fa-bicycle"></i>
+                    </div>
+                    <div class="section-header">
+                        <div class="section-icon exercise-icon">
+                            <i class="fa fa-bicycle"></i>
+						</div>
+                        <h4>Exercise Test Results</h4>
+						</div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="thalach">
+                                Max Heart Rate
+                                <i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" title="<div class='text-left'><strong>Maximum heart rate achieved during exercise</strong><hr>Maximum heart rate tends to be around 220 minus your age. Lower maximum heart rates during exercise can indicate decreased cardiovascular fitness or heart problems.<br><br>General formula: 220 - age = predicted maximum heart rate</div>"></i>
+                            </label>
+                            <input type="number" class="form-control" id="thalach" name="thalach" placeholder="Enter max heart rate" required min="70" max="220">
+                            <small class="form-text text-muted">Maximum heart rate achieved during exercise</small>
+						</div>
+                        <div class="form-group col-md-3">
+                            <label for="exang">
+                                Exercise Induced Angina
+                                <i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" title="<div class='text-left'><strong>Exercise induced chest pain</strong><hr>Chest pain triggered by physical activity is a significant indicator of potential heart disease.<br><br><strong>Yes (1):</strong> Exercise induces chest pain<br><strong>No (0):</strong> No chest pain during exercise</div>"></i>
+                            </label>
+                            <select class="form-control" id="exang" name="exang" required>
+                                <option value="" selected disabled>Select option</option>
+                                <option value="1">Yes (Value: 1)</option>
+                                <option value="0">No (Value: 0)</option>
+                            </select>
+                            <small class="form-text text-muted">Do you experience chest pain during exercise?</small>
+						</div>
+                        <div class="form-group col-md-3">
+                            <label for="old_peak">
+                                Oldpeak
+                                <i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" title="<div class='text-left'><strong>ST depression induced by exercise relative to rest</strong><hr>ST depression refers to a finding on an electrocardiogram, where the ST segment is abnormally low below the baseline.<br><br>Higher values (2.0+) may indicate significant heart disease. Normal values are close to 0.</div>"></i>
+                            </label>
+                            <input type="number" step="0.1" class="form-control" id="old_peak" name="old_peak" placeholder="Enter oldpeak" required min="0" max="10">
+                            <small class="form-text text-muted">ST depression induced by exercise relative to rest</small>
+						</div>
+                        <div class="form-group col-md-3">
+                            <label for="slope">
+                                Slope
+                                <i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" title="<div class='text-left'><strong>Slope of the peak exercise ST segment</strong><hr><strong>Upsloping (0):</strong> Gradual upward slope<br><strong>Flat (1):</strong> Minimal slope, nearly horizontal<br><strong>Downsloping (2):</strong> Gradual downward slope<br><br>Downsloping (2) is often associated with a higher risk of heart disease.</div>"></i>
+                            </label>
+                            <select class="form-control" id="slope" name="slope" required>
+                                <option value="" selected disabled>Select slope</option>
+                                <option value="0">Upsloping (Value: 0)</option>
+                                <option value="1">Flat (Value: 1)</option>
+                                <option value="2">Downsloping (Value: 2)</option>
+                            </select>
+                            <small class="form-text text-muted">Slope of the peak exercise ST segment</small>
+						</div>
+				</div>
+						</div>
+                
+                <!-- Additional Cardiac Tests -->
+                <div class="form-section">
+                    <div class="form-section-icon">
+                        <i class="fa fa-stethoscope"></i>
+						</div>
+                    <div class="section-header">
+                        <div class="section-icon additional-icon">
+                            <i class="fa fa-stethoscope"></i>
+						</div>
+                        <h4>Additional Cardiac Tests</h4>
+						</div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="ca">
+                                Cardiac Vessels (CA)
+                                <i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" title="<div class='text-left'><strong>Number of major vessels colored by fluoroscopy</strong><hr>This indicates the number of major blood vessels to the heart that are narrowed by disease, as detected by fluoroscopy.<br><br>Range is from 0 to 4, with higher numbers indicating more vessels affected by coronary disease. More affected vessels generally indicates more severe heart disease.</div>"></i>
+                            </label>
+                            <select class="form-control" id="ca" name="ca" required>
+                                <option value="" selected disabled>Select number of vessels</option>
+                                <option value="0">0 Vessel</option>
+                                <option value="1">1 Vessel</option>
+                                <option value="2">2 Vessels</option>
+                                <option value="3">3 Vessels</option>
+                                <option value="4">4 Vessels</option>
+                            </select>
+                            <small class="form-text text-muted">Number of major vessels colored by fluoroscopy (0-4)</small>
+						</div>
+                        <div class="form-group col-md-6">
+                            <label for="thal">
+                                Thalassemia
+                                <i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" title="<div class='text-left'><strong>Thalassemia blood disorder type</strong><hr><strong>Normal (1):</strong> Normal blood flow<br><strong>Fixed Defect (2):</strong> Permanently reduced blood flow to part of the heart<br><strong>Reversible Defect (3):</strong> Temporarily reduced blood flow to part of the heart<br><br>Reversible defects often indicate ischemia, while fixed defects suggest previous heart attacks.</div>"></i>
+                            </label>
+                            <select class="form-control" id="thal" name="thal" required>
+                                <option value="" selected disabled>Select thalassemia type</option>
+                                <option value="1">Normal (Value: 1)</option>
+                                <option value="2">Fixed Defect (Value: 2)</option>
+                                <option value="3">Reversible Defect (Value: 3)</option>
+                            </select>
+                            <small class="form-text text-muted">Thalassemia blood disorder type</small>
+						</div>
+				</div>
+						</div>
+
+                <div class="text-center">
+                    <button type="submit" class="prediction-submit-button">
+                        <i class="fa fa-heartbeat"></i> Get My Heart Disease Prediction
+                    </button>
+                </div>
+				</form>
+			</div>
+		</div>
+    
+    <!-- Reference Values -->
+    <div class="prediction-reference">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fa fa-info-circle mr-2"></i> Parameter Reference Guide</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 class="text-primary mb-3">Understanding the Parameters</h6>
+                    <ul class="list-unstyled parameter-list">
+                        <li><strong>Age:</strong> Age in years - Risk increases with age</li>
+                        <li><strong>Sex:</strong> 1 = male, 0 = female - Men generally at higher risk</li>
+                        <li><strong>Chest Pain:</strong> Types from typical angina (0) to asymptomatic (3)</li>
+                        <li><strong>Resting BP:</strong> Normal range: 90-120 mm Hg</li>
+                        <li><strong>Cholesterol:</strong> Desirable: <200 mg/dl, High: ≥240 mg/dl</li>
+                        <li><strong>Fasting BS:</strong> >120 mg/dl may indicate diabetes (1=yes, 0=no)</li>
+                        <li><strong>Resting ECG:</strong> 0=normal, 1=ST-T wave abnormality, 2=LV hypertrophy</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6 class="text-primary mb-3">Additional Parameters</h6>
+                    <ul class="list-unstyled parameter-list">
+                        <li><strong>Max Heart Rate:</strong> Typically 220 minus age</li>
+                        <li><strong>Exercise Angina:</strong> Chest pain during exercise (1=yes, 0=no)</li>
+                        <li><strong>Oldpeak:</strong> ST depression - Higher values (>2.0) may indicate disease</li>
+                        <li><strong>Slope:</strong> ST segment slope - Downsloping (2) suggests higher risk</li>
+                        <li><strong>CA:</strong> Number of major vessels affected (0-4)</li>
+                        <li><strong>Thalassemia:</strong> 1=normal, 2=fixed defect, 3=reversible defect</li>
+                    </ul>
+                    <div class="alert alert-secondary mt-3">
+                        <i class="fa fa-lightbulb-o mr-2"></i> <strong>Tip:</strong> Hover over any parameter label for detailed information about what it means and how it affects heart disease risk.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Initialize tooltips with custom settings -->
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip({
+        container: 'body',
+        placement: 'auto',
+        trigger: 'hover',
+        html: true,
+        template: '<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
+    });
+    
+    // Show/hide tooltips on mobile touch
+    $('[data-toggle="tooltip"]').on('click', function() {
+        $(this).tooltip('toggle');
+    });
+});
+</script>
+
+{% endblock %}
