@@ -1,0 +1,17 @@
+{
+  "name": "heart-disease-prediction-system",
+  "version": "1.0.0",
+  "description": "Heart Disease Prediction System using Django and Machine Learning",
+  "engines": {
+    "node": ">=14.x"
+  },
+  "scripts": {
+    "build": "bash ./build_files.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/the-shashwat-singh/heart-disease-prediction-system.git"
+  },
+  "author": "Shashwat Singh",
+  "license": "MIT"
+} 
